@@ -1,0 +1,21 @@
+language: node_js
+node_js:
+  - 0.12
+env:
+  global:
+    - GH_REF: github.com/vaeum/template.git
+    - secure: BhL8qOOO7m0PpG8OiGOdkFdQLAkbT/S8/kCRY00SPSMV//+hHlivro1EVpXHES96ldeTejXFretzmyzcg3UTQYKVx0LaB1V+C4rV9RakGCzkc58TqRRFiY3Tc8gPf6aajxvviazjZKPRM4IFpuj5tSXRLpta3FFhUK7I73yn8FRpgyfZsCI8ko4Aw/rmFJvpYvdUDJiMDfzXaYbGnDr1+UVc3qFBOVyrI8Kly+uNH/aqVoUYxG2edNNbFkX5tIy+7y4i2WDbW1iPDl2L3sNA5iY6jUDWhK4BoOgsSGPZ5q3cZ2HtbTqgtJKJfk+/9IOqNcMFt0CE9hW/Pc4x4xEYf1rYQiStFd3K4jAP0qy31+ufix4sz01XEFQxu2LQj0OCHeD7amrtNcBwy7p/fLApMGYFj6meXKUUPf5DYC8nQ980kZasibesqlExI5TAqPGv1K1fWw+cEjbAgJFz7A2jCzkNzBDycF2BcWYqi1IcUw0QYNeJcCkl47P1K+kTHNBnRx1u3Aakl+LXTceEIIde85Otx7RY/jSOPsxbnum7lnNaS/AHRCnejIjY84b2xqy0kBJ66ATbctlLx6/F6tX2eTWw9RpYlsjyharG9dhGrWU5D2ldF+Gat/PaMm6dUimbO3Z+T3Dx+MGPutWmKZD4Ux8OQtdCPpyRvuenuM0LbHE=
+before_script:
+  - npm install -g bower
+  - npm install -g gulp
+  - bower install
+  - npm install
+script:
+  - npm run build
+  - cd app
+  - git init
+  - 'git config user.name "Alexander Anpleenko"'
+  - 'git config user.email "vaeum@yahoo.com"'
+  - git add .
+  - 'git commit -m "Deploy to GitHub Pages"'
+  - 'git push --force --quiet "https://${GITHUB_TOKEN}@${GH_REF}" master:gh-pages > /dev/null 2>&1'

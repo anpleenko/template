@@ -1,0 +1,24 @@
+{
+  "name": "maket",
+  "homepage": "https://github.com/vaeum/maket",
+  "authors": [
+    "Alexander Anpleenko <vaeum@yahoo.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^2.2.2",
+    "bootstrap-sass": "^3.3.6",
+    "bootstrap": "^3.3.6",
+    "css.modfiles": "^0.0.6"
+  }
+}
