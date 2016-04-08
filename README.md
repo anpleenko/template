@@ -1,7 +1,6 @@
-# maket
-Site of maket
+# Template
 
-[![Build Status](https://travis-ci.org/vaeum/maket.svg?branch=master)](https://travis-ci.org/vaeum/maket)
+[![Build Status](https://travis-ci.org/vaeum/template.svg?branch=master)](https://travis-ci.org/vaeum/template)
 
 commands for init project
 
