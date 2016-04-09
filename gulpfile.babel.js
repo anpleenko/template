@@ -1,5 +1,11 @@
 'use strict';
 
+const NODE_ENV = process.env.NODE_ENV;
+if (NODE_ENV == "prod") {
+    console.log("alskdja");
+};
+console.log(process.env.NODE_ENV);
+
 import gulp           from 'gulp';
 import del            from 'del';
 import mainBowerFiles from 'main-bower-files';
