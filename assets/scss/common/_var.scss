@@ -1,1 +1,7 @@
-$main: #fff;
+//color varaabless
+$main: #E64A19;
+$white: lighten( desaturate( adjust-hue( #E64A19, -14deg ), 80 ), 50 ); // #fff
+$black: darken( desaturate( adjust-hue( #E64A19, -14deg ), 80 ), 50 ); // #000
+
+//font variabless
+

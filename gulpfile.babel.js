@@ -1,10 +1,6 @@
 'use strict';
 
-const NODE_ENV = process.env.NODE_ENV;
-if (NODE_ENV == "prod") {
-    console.log("alskdja");
-};
-console.log(process.env.NODE_ENV);
+const prod = (process.env.NODE_ENV == "prod")?(true):(false);
 
 import gulp           from 'gulp';
 import del            from 'del';
@@ -31,6 +27,7 @@ import imagemin       from 'gulp-imagemin';
 import browserSync    from 'browser-sync';
 import watch          from 'gulp-watch';
 import remember       from 'gulp-remember';
+import gif            from 'gulp-if';
 
 let postCSSFocus = function (css) {
     css.walkRules(function (rule) {
@@ -169,8 +166,8 @@ gulp.task('copyLibsFiles', () => {
 })
 
 gulp.task('copyFontFiles', () => {
-    return gulp.src(['assets/font/**'])
-        .pipe(gulp.dest('app/font'))
+    return gulp.src(['assets/fonts/**'])
+        .pipe(gulp.dest('app/fonts'))
 })
 
 gulp.task('buildBowerCSS', () => {
