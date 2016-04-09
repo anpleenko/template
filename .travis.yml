@@ -8,8 +8,8 @@ env:
 before_script:
   - npm install -g bower
   - npm install -g gulp
-  - bower install
-  - npm install
+  # - bower install
+  # - npm install
 script:
   - npm run build
   - cd app

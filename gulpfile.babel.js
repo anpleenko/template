@@ -84,7 +84,7 @@ gulp.task('imagemin_clear', () => {
 
 gulp.task('imagemin_build', () => {
     return gulp.src('./assets/images/**')
-        .pipe(imagemin({progressive: true}))
+        .pipe(gulpif(prod, imagemin({progressive: true})))
         .pipe(gulp.dest('app/img/'))
 })
 
