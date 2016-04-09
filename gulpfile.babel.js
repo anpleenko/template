@@ -27,7 +27,7 @@ import imagemin       from 'gulp-imagemin';
 import browserSync    from 'browser-sync';
 import watch          from 'gulp-watch';
 import remember       from 'gulp-remember';
-import gif            from 'gulp-if';
+import gulpif         from 'gulp-if';
 
 let postCSSFocus = function (css) {
     css.walkRules(function (rule) {
@@ -101,7 +101,8 @@ gulp.task('browserSync', () => {
 
 gulp.task('jade', () => {
     var data = JSON.parse(fs.readFileSync('./assets/data/data.json', 'utf-8'));
-    data.debug = prod;
+    data.debug = !prod;
+    console.log(data);
 
     return gulp.src('./assets/pages/!(_)*.jade')
         .pipe(remember('jade'))
@@ -151,7 +152,8 @@ gulp.task('babel', () => {
             presets: ['es2015']
         }))
         .pipe(concat('main.js'))
-        // .pipe(uglify({mangle: false})).pipe(gulp.dest('./app/js/'))
+        .pipe(gulpif(prod, uglify({mangle: false})))
+        .pipe(gulp.dest('./app/js/'))
         .on('end', browserSync.reload)
 })
 

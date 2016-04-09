@@ -26,6 +26,17 @@ html(lang="en")
     link(rel="icon", href="img/favicon.png", type="image/x-icon")
     link(rel="shortcut icon", href="img/favicon.png", type="image/x-icon")
 
+    if debug
+      link(href="css/show-js-error.css", rel="stylesheet")
+      script(src="js/show-js-error.js")
+      script
+        |showJSError.init({
+        |    title: 'JavaScript error',
+        |    userAgent: navigator.userAgent,
+        |    sendText: 'Send 🐛',
+        |    sendUrl: 'https://github.com/vaeum/template/issues/new?title={title}&body={body}'
+        |});
+
     link(href="css/bootstrap.css", rel="stylesheet")
     link(href="css/modfiles.css", rel="stylesheet")
     link(href="css/style.css", rel="stylesheet")
