@@ -1,0 +1,30 @@
+.header{
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: #999 1px solid;
+  &__logo{
+    float: left;
+    display: block;
+  }
+  &__right-nav{
+    float: right;
+  }
+  &__logo-img{
+    width: 70px;
+  }
+  &__logo-text{
+    width: 150px;
+  }
+  &__phone-one{
+    float: left;
+  }
+  &__phone-two{
+    float: left;
+  }
+  &__login{
+    float: left;
+  }
+  &__language{
+    float: left;
+  }
+}

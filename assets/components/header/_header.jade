@@ -1,8 +1,25 @@
 header(block="header")
-  .container(elem="container")
-    .row(elem="row")
-      .col-xs-6(elem="col")
-        a(href="index.html")
-          img(src="img/logo.svg", alt="header logo")
-      .col-xs-6(elem="col")
+  .container(elem="container clearfix")
+    a(href="index.html" elem="logo")
+      img(src="img/logo.svg", alt="header logo" elem="logo-img")
+      img(src="img/name.svg", alt="header logo" elem="logo-text")
+
+    div(elem="right-nav clearfix")
+
+      div(elem="phone-one")
+        a(href="tel:79091234567").db
+          span +7(909)
+          span 1234567
+          span туристам
+
+      div(elem="phone-two")
+        a(href="tel:79091234567").db
+          span +7(909)
+          span 1234567
+          span агентствам
+
+      div(elem="login")
+
+      div(elem="language")
+
 
