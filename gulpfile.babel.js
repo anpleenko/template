@@ -79,17 +79,17 @@ let BOWER_MAIN_FILES_CONFIG = {
 let reload = browserSync.reload;
 
 gulp.task('imagemin_clear', () => {
-    return del(['app/img/']);
+    return del(['app/img/'])
 })
 
 gulp.task('imagemin_build', () => {
     return gulp.src('./assets/images/**')
         .pipe(imagemin({progressive: true}))
-        .pipe(gulp.dest('app/img/'));
+        .pipe(gulp.dest('app/img/'))
 })
 
 gulp.task('imagemin', () => {
-    runSequence('imagemin_clear', 'imagemin_build');
+    runSequence('imagemin_clear', 'imagemin_build')
 })
 
 gulp.task('browserSync', () => {
@@ -188,6 +188,13 @@ gulp.task('buildBowerJS', () => {
         .pipe(jsFilter)
         .pipe(uglify())
         .pipe(gulp.dest('app/js'))
+})
+
+gulp.task('build', () =>{
+    runSequence('bootstrap', 'scss', 'imagemin_clear',
+        'imagemin_build', 'babel', 'jade', 'copyMiscFiles',
+        'copyFontFiles', 'buildBowerCSS', 'buildBowerJS',
+        'copyLibsFiles')
 })
 
 gulp.task('default', ['browserSync'], () => {

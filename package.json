@@ -1,24 +1,23 @@
 {
-  "name": "maket",
-  "version": "1.0.0",
-  "description": "Site of maket",
+  "name": "Template",
+  "version": "0.0.1",
+  "description": "Template project",
   "main": "index.js",
   "scripts": {
     "prebuild": "rm -rf app && rm -rf assets/bower && bower install",
-    "build": "gulp bootstrap && gulp scss && gulp imagemin && gulp babel && gulp jade",
-    "postbuild": "gulp copyMiscFiles && gulp copyFontFiles && gulp buildBowerCSS && gulp buildBowerJS && gulp copyLibsFiles",
+    "build": "gulp build",
     "start": "gulp"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://vaeum@github.com/vaeum/maket.git"
+    "url": "git+https://vaeum@github.com/vaeum/template.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/vaeum/maket/issues"
+    "url": "https://github.com/vaeum/template/issues"
   },
-  "homepage": "https://github.com/vaeum/maket#readme",
+  "homepage": "http://vaeum.github.io/template",
   "devDependencies": {
     "autoprefixer": "^6.3.5",
     "babel-core": "^6.7.4",
