@@ -1,2 +1,4 @@
-body{
-}
+@import "common/var";
+
+@import "components/*";
+@import "../components/**/*";

@@ -113,7 +113,7 @@ gulp.task('jade', () => {
         .on('error', console.log)
         .pipe(gulp.dest('./app/'))
         .on('end', browserSync.reload)
-
+})
 
 gulp.task('bootstrap', () => {
     return gulp.src(['./assets/bootstrap/**/*.scss'])
