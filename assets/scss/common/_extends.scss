@@ -1,0 +1,119 @@
+%hover-transform-before{
+  opacity: 0;
+  visibility: visible;
+  @media(min-width: 992px){
+    max-width: 0;
+    max-height: 0;
+    transform-origin: 0 0;
+    transform: perspective(600px) rotateX(-90deg);
+    transition: transform 0.5s ease, opacity 0.6s ease, max-height 0.6s step-end, max-width 0.6s;
+  }
+}
+
+%hover-transform-after{
+  opacity: 1;
+  visibility: visible;
+  @media(min-width: 992px){
+    max-width: 5000px;
+    max-height: 5000px;
+    transform: perspective(600px) rotateX(0deg);
+    transition: transform 0.5s ease, opacity 0.2s ease, max-height 0s step-end, max-width 0s step-end, padding 0s step-end;
+  }
+}
+
+%clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+%margin-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+%display-block {
+  display: block;
+}
+
+%display-inline-block {
+  display: inline-block;
+}
+
+%display-table {
+  display: table;
+}
+
+%display-none {
+  display: none;
+}
+
+%text-overflow {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+%text-ellipsis {
+  text-overflow: ellipsis;
+}
+
+%position-relative {
+  position: relative;
+}
+
+%position-absolute {
+  position: absolute;
+}
+
+%position-fixed {
+  position: fixed;
+}
+
+%position-static {
+  position: static;
+}
+
+%outline-none{
+  outline: none !important;
+}
+
+%user-select-none{
+  user-select:none;
+}
+
+%fluid{
+  width: 100%;
+}
+
+%text-decoration-none{
+  text-decoration: none;
+}
+
+%text-decoration-underline{
+  text-decoration: underline;
+}
+
+%float-left{
+  float: left;
+}
+
+%float-right{
+  float: right;
+}
+
+%float-none{
+  float: none;
+}
+
+%text-smoothing{
+  // http://habrahabr.ru/post/154465/
+  text-shadow:-1px -1px 1px rgba(255,255,255,0.2), // наверх и влево
+  1px 1px 1px rgba(255,255,255,0.2), // вниз и вправо
+  1px 1px 1px rgba(0,0,0,0.7); // тёмная тень
+}
+
+%list-style-none{
+  list-style: none;
+}
