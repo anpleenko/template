@@ -23,7 +23,8 @@ import uglify         from 'gulp-uglify';
 import concat         from 'gulp-concat';
 import imagemin       from 'gulp-imagemin';
 import browserSync    from 'browser-sync';
-import watch from 'gulp-watch';
+import watch          from 'gulp-watch';
+import remember       from 'gulp-remember';
 
 let postCSSFocus = function (css) {
     css.walkRules(function (rule) {
@@ -99,6 +100,7 @@ gulp.task('jade', () => {
     var data = JSON.parse(fs.readFileSync('./assets/data/data.json', 'utf-8'));
 
     return gulp.src('./assets/pages/!(_)*.jade')
+        .pipe(remember('jade'))
         .pipe(jade({locals: data }))
         .pipe(posthtml([
             require('posthtml-bem')({
@@ -111,7 +113,7 @@ gulp.task('jade', () => {
         .on('error', console.log)
         .pipe(gulp.dest('./app/'))
         .on('end', browserSync.reload)
-})
+
 
 gulp.task('bootstrap', () => {
     return gulp.src(['./assets/bootstrap/**/*.scss'])
@@ -186,6 +188,6 @@ gulp.task('default', ['browserSync'], () => {
     watch(['assets/components/**/*.scss', 'assets/scss/**/*.scss'], () => gulp.start('scss'));
     watch(['assets/bootstrap/**/*.scss'], () => gulp.start('bootstrap'));
     watch(['assets/images/**'], () => gulp.start('imagemin'));
-    watch(['assets/json/**/*.json', 'assets/pages/**/*.jade'], () => gulp.start('jade'));
+    watch(['assets/json/**/*.json', 'assets/pages/**/*.jade', 'assets/components/**/*.jade'], () => gulp.start('jade'));
     watch(['assets/script/**/*.js'], () => gulp.start('babel'));
 })
