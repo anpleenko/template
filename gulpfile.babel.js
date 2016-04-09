@@ -5,29 +5,18 @@ const prod = (process.env.NODE_ENV == "prod")?(true):(false);
 import gulp           from 'gulp';
 import del            from 'del';
 import mainBowerFiles from 'main-bower-files';
-import gulpFilter     from 'gulp-filter';
 import runSequence    from 'run-sequence';
 import fs             from 'fs';
-import jade           from 'gulp-jade';
-import prettify       from 'gulp-prettify';
-import posthtml       from 'gulp-posthtml';
-import sass           from 'gulp-sass';
-import csso           from 'gulp-csso';
 import perfectionist  from 'perfectionist';
-import postcss        from 'gulp-postcss';
 import pxtorem        from 'postcss-pxtorem';
 import selector       from 'postcss-custom-selectors';
 import mqpacker       from "css-mqpacker";
 import autoprefixer   from 'autoprefixer';
-import bulkSass       from 'gulp-sass-glob-import';
-import babel          from 'gulp-babel';
-import uglify         from 'gulp-uglify';
-import concat         from 'gulp-concat';
-import imagemin       from 'gulp-imagemin';
 import browserSync    from 'browser-sync';
-import watch          from 'gulp-watch';
-import remember       from 'gulp-remember';
-import gulpif         from 'gulp-if';
+
+import gulpLoadPlugins from 'gulp-load-plugins';
+
+let $ = gulpLoadPlugins({});
 
 let postCSSFocus = function (css) {
     css.walkRules(function (rule) {
@@ -84,7 +73,7 @@ gulp.task('imagemin_clear', () => {
 
 gulp.task('imagemin_build', () => {
     return gulp.src('./assets/images/**')
-        .pipe(gulpif(prod, imagemin({progressive: true})))
+        .pipe($.if(prod, $.imagemin({progressive: true})))
         .pipe(gulp.dest('app/img/'))
 })
 
@@ -102,19 +91,18 @@ gulp.task('browserSync', () => {
 gulp.task('jade', () => {
     var data = JSON.parse(fs.readFileSync('./assets/data/data.json', 'utf-8'));
     data.debug = !prod;
-    console.log(data);
 
     return gulp.src('./assets/pages/!(_)*.jade')
-        .pipe(remember('jade'))
-        .pipe(jade({locals: data }))
-        .pipe(posthtml([
+        .pipe($.remember('jade'))
+        .pipe($.jade({locals: data }))
+        .pipe($.posthtml([
             require('posthtml-bem')({
                 elemPrefix: '__',
                 modPrefix: '_',
                 modDlmtr: '--'
             })
         ]))
-        .pipe(prettify({indent_size: 4}))
+        .pipe($.prettify({indent_size: 4}))
         .on('error', console.log)
         .pipe(gulp.dest('./app/'))
         .on('end', browserSync.reload)
@@ -123,36 +111,36 @@ gulp.task('jade', () => {
 gulp.task('bootstrap', () => {
     return gulp.src(['./assets/bootstrap/**/*.scss'])
 
-        .pipe(sass({
+        .pipe($.sass({
             includePaths: ['assets/bower/bootstrap-sass/assets/stylesheets/']
-        }).on('error', sass.logError))
+        }).on('error', $.sass.logError))
 
-        .pipe(postcss(PROCESSORS))
-        .pipe(csso())
-        .pipe(gulpif(!prod, postcss([perfectionist({})])))
+        .pipe($.postcss(PROCESSORS))
+        .pipe($.csso())
+        .pipe($.if(!prod, $.postcss([perfectionist({})])))
         .pipe(gulp.dest('./app/css'))
         .pipe(reload({stream: true}))
 })
 
 gulp.task('scss', () => {
     return gulp.src(['assets/scss/**/style.scss'])
-        .pipe(bulkSass())
-        .pipe(sass().on('error', sass.logError))
-        .pipe(postcss(PROCESSORS))
-        .pipe(csso())
-        .pipe(gulpif(!prod, postcss([perfectionist({})])))
+        .pipe($.sassGlobImport())
+        .pipe($.sass().on('error', $.sass.logError))
+        .pipe($.postcss(PROCESSORS))
+        .pipe($.csso())
+        .pipe($.if(!prod, $.postcss([perfectionist({})])))
         .pipe(gulp.dest('./app/css'))
         .pipe(reload({stream: true}))
 })
 
 gulp.task('babel', () => {
     return gulp.src(['./assets/script/**/*.js'])
-        .pipe(babel({
+        .pipe($.babel({
             comments: false,
             presets: ['es2015']
         }))
-        .pipe(concat('main.js'))
-        .pipe(gulpif(prod, uglify({mangle: false})))
+        .pipe($.concat('main.js'))
+        .pipe($.if(prod, $.uglify({mangle: false})))
         .pipe(gulp.dest('./app/js/'))
         .on('end', browserSync.reload)
 })
@@ -164,7 +152,7 @@ gulp.task('copyMiscFiles', () => {
 
 gulp.task('copyLibsFiles', () => {
     return gulp.src(['assets/lib/**'])
-        .pipe(uglify())
+        .pipe($.uglify())
         .pipe(gulp.dest('app/js'))
 })
 
@@ -174,19 +162,19 @@ gulp.task('copyFontFiles', () => {
 })
 
 gulp.task('buildBowerCSS', () => {
-    var cssFilter = gulpFilter('**/*.css')
+    var cssFilter = $.filter('**/*.css')
     return gulp.src(mainBowerFiles(BOWER_MAIN_FILES_CONFIG))
         .pipe(cssFilter)
-        .pipe(csso())
-        .pipe(gulpif(!prod, postcss([perfectionist({})])))
+        .pipe($.csso())
+        .pipe($.if(!prod, $.postcss([perfectionist({})])))
         .pipe(gulp.dest('app/css'))
 })
 
 gulp.task('buildBowerJS', () => {
-    var jsFilter = gulpFilter('**/*.js')
+    var jsFilter = $.filter('**/*.js')
     return gulp.src(mainBowerFiles(BOWER_MAIN_FILES_CONFIG))
         .pipe(jsFilter)
-        .pipe(uglify())
+        .pipe($.uglify())
         .pipe(gulp.dest('app/js'))
 })
 
@@ -198,9 +186,9 @@ gulp.task('build', () =>{
 })
 
 gulp.task('default', ['browserSync'], () => {
-    watch(['assets/components/**/*.scss', 'assets/scss/**/*.scss'], () => gulp.start('scss'));
-    watch(['assets/bootstrap/**/*.scss'], () => gulp.start('bootstrap'));
-    watch(['assets/images/**'], () => gulp.start('imagemin'));
-    watch(['assets/json/**/*.json', 'assets/pages/**/*.jade', 'assets/components/**/*.jade'], () => gulp.start('jade'));
-    watch(['assets/script/**/*.js'], () => gulp.start('babel'));
+    $.watch(['assets/components/**/*.scss', 'assets/scss/**/*.scss'], () => gulp.start('scss'));
+    $.watch(['assets/bootstrap/**/*.scss'], () => gulp.start('bootstrap'));
+    $.watch(['assets/images/**'], () => gulp.start('imagemin'));
+    $.watch(['assets/json/**/*.json', 'assets/pages/**/*.jade', 'assets/components/**/*.jade'], () => gulp.start('jade'));
+    $.watch(['assets/script/**/*.js'], () => gulp.start('babel'));
 })
