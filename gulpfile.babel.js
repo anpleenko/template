@@ -129,7 +129,7 @@ gulp.task('bootstrap', () => {
 
         .pipe(postcss(PROCESSORS))
         .pipe(csso())
-        .pipe(postcss([perfectionist({})]))
+        .pipe(gulpif(!prod, postcss([perfectionist({})])))
         .pipe(gulp.dest('./app/css'))
         .pipe(reload({stream: true}))
 })
@@ -140,7 +140,7 @@ gulp.task('scss', () => {
         .pipe(sass().on('error', sass.logError))
         .pipe(postcss(PROCESSORS))
         .pipe(csso())
-        .pipe(postcss([perfectionist({})]))
+        .pipe(gulpif(!prod, postcss([perfectionist({})])))
         .pipe(gulp.dest('./app/css'))
         .pipe(reload({stream: true}))
 })
@@ -178,7 +178,7 @@ gulp.task('buildBowerCSS', () => {
     return gulp.src(mainBowerFiles(BOWER_MAIN_FILES_CONFIG))
         .pipe(cssFilter)
         .pipe(csso())
-        .pipe(postcss([perfectionist({})]))
+        .pipe(gulpif(!prod, postcss([perfectionist({})])))
         .pipe(gulp.dest('app/css'))
 })
 
