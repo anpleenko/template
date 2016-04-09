@@ -101,6 +101,7 @@ gulp.task('browserSync', () => {
 
 gulp.task('jade', () => {
     var data = JSON.parse(fs.readFileSync('./assets/data/data.json', 'utf-8'));
+    data.debug = prod;
 
     return gulp.src('./assets/pages/!(_)*.jade')
         .pipe(remember('jade'))
