@@ -2,49 +2,21 @@
 
 const prod = (process.env.NODE_ENV == "prod")?(true):(false);
 
-import gulp           from 'gulp';
-import del            from 'del';
-import mainBowerFiles from 'main-bower-files';
-import runSequence    from 'run-sequence';
-import fs             from 'fs';
-import perfectionist  from 'perfectionist';
-import pxtorem        from 'postcss-pxtorem';
-import selector       from 'postcss-custom-selectors';
-import mqpacker       from "css-mqpacker";
-import autoprefixer   from 'autoprefixer';
-import browserSync    from 'browser-sync';
-
+import gulp            from 'gulp';
+import del             from 'del';
+import mainBowerFiles  from 'main-bower-files';
+import runSequence     from 'run-sequence';
+import fs              from 'fs';
+import perfectionist   from 'perfectionist';
+import pxtorem         from 'postcss-pxtorem';
+import selector        from 'postcss-custom-selectors';
+import focusHover      from 'postcss-focus-hover';
+import mqpacker        from "css-mqpacker";
+import autoprefixer    from 'autoprefixer';
+import browserSync     from 'browser-sync';
 import gulpLoadPlugins from 'gulp-load-plugins';
 
 let $ = gulpLoadPlugins({});
-
-let postCSSFocus = function (css) {
-    css.walkRules(function (rule) {
-        if (rule.selector.indexOf(':hover') !== -1) {
-            var focuses = [];
-            rule.selectors.forEach(function (selector) {
-                if (selector.indexOf(':hover') !== -1) {
-                    focuses.push(selector.replace(/:hover/g, ':focus'));
-                }
-            });
-            if (focuses.length) {
-                rule.selectors = rule.selectors.concat(focuses);
-            }
-        }
-
-        if (rule.selector.indexOf(':only-hover') !== -1) {
-            var hovered = [];
-            rule.selectors.forEach(function (selector) {
-                if (selector.indexOf(':only-hover') !== -1) {
-                    hovered.push(selector.replace(/:only-hover/g, ':hover'));
-                }
-            })
-            if (hovered.length) {
-                rule.selectors = hovered;
-            }
-        }
-    })
-}
 
 let PROCESSORS = [
     pxtorem({
@@ -54,7 +26,7 @@ let PROCESSORS = [
     autoprefixer({ browsers: ['last 2 versions', '> 1%'] }),
     mqpacker,
     selector,
-    postCSSFocus
+    focusHover
 ]
 
 let BOWER_MAIN_FILES_CONFIG = {
