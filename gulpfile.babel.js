@@ -95,6 +95,7 @@ gulp.task('jade', () => {
     return gulp.src('./assets/pages/!(_)*.jade')
         .pipe($.remember('jade'))
         .pipe($.jade({locals: data }))
+        .on('error', $.notify.onError())
         .pipe($.posthtml([
             require('posthtml-bem')({
                 elemPrefix: '__',
@@ -103,7 +104,6 @@ gulp.task('jade', () => {
             })
         ]))
         .pipe($.prettify({indent_size: 4}))
-        .on('error', console.log)
         .pipe(gulp.dest('./app/'))
         .on('end', browserSync.reload)
 })
@@ -113,7 +113,7 @@ gulp.task('bootstrap', () => {
 
         .pipe($.sass({
             includePaths: ['assets/bower/bootstrap-sass/assets/stylesheets/']
-        }).on('error', $.sass.logError))
+        }).on('error', $.notify.onError()))
 
         .pipe($.postcss(PROCESSORS))
         .pipe($.csso())
@@ -125,7 +125,7 @@ gulp.task('bootstrap', () => {
 gulp.task('scss', () => {
     return gulp.src(['assets/scss/**/style.scss'])
         .pipe($.sassGlobImport())
-        .pipe($.sass().on('error', $.sass.logError))
+        .pipe($.sass().on('error', $.notify.onError()))
         .pipe($.postcss(PROCESSORS))
         .pipe($.csso())
         .pipe($.if(!prod, $.postcss([perfectionist({})])))
@@ -138,7 +138,7 @@ gulp.task('babel', () => {
         .pipe($.babel({
             comments: false,
             presets: ['es2015']
-        }))
+        })).on('error', $.notify.onError())
         .pipe($.concat('main.js'))
         .pipe($.if(prod, $.uglify({mangle: false})))
         .pipe(gulp.dest('./app/js/'))
