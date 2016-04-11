@@ -1,6 +1,7 @@
 .header{
   margin-bottom: 30px;
   padding-bottom: 20px;
+  height: $header-height;
   border-bottom: #999 1px solid;
   &__logo{
     float: left;
@@ -17,14 +18,22 @@
   }
   &__phone-one{
     float: left;
+    background: #000;
+    border-right: 1px #333 solid;
+    height: $header-height;
   }
   &__phone-two{
     float: left;
+    height: $header-height;
   }
   &__login{
     float: left;
   }
   &__language{
     float: left;
+  }
+  &__phone-desc{
+    text-align: right;
+    display: block;
   }
 }

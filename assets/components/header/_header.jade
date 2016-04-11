@@ -7,19 +7,22 @@ header(block="header")
     div(elem="right-nav clearfix")
 
       div(elem="phone-one")
-        a(href="tel:79091234567").db
-          span +7(909)
-          span 1234567
-          span туристам
+        a(href="tel:79091234567" elem="phone-link").db
+          span(elem="area") +7(909)
+          span(elem="locla") 1234567
+          span(elem="phone-desc") туристам
 
       div(elem="phone-two")
-        a(href="tel:79091234567").db
-          span +7(909)
-          span 1234567
-          span агентствам
+        a(href="tel:79091234567" elem="phone-link").db
+          span(elem="ara") +7(909)
+          span(elem="local") 1234567
+          span(elem="phone-desc") агентствам
 
       div(elem="login")
+        span(elem="login-button") Войти
 
       div(elem="language")
+        span RU
+        span EN
 
 
