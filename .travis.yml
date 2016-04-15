@@ -10,8 +10,8 @@ before_script:
   - npm install -g gulp
   # - bower install
   # - npm install
-script:
   - npm run build
+script:
   - cd app
   - git init
   - 'git config user.name "Alexander Anpleenko"'
