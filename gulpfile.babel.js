@@ -161,6 +161,6 @@ gulp.task('default', ['browserSync'], () => {
     $.watch(['assets/components/**/*.scss', 'assets/scss/**/*.scss'], () => gulp.start('scss'));
     $.watch(['assets/bootstrap/**/*.scss'], () => gulp.start('bootstrap'));
     $.watch(['assets/images/**'], () => gulp.start('imagemin'));
-    $.watch(['assets/json/**/*.json', 'assets/pages/**/*.jade', 'assets/components/**/*.jade'], () => gulp.start('jade'));
+    $.watch(['assets/data/**/*.json', 'assets/pages/**/*.jade', 'assets/components/**/*.jade'], () => gulp.start('jade'));
     $.watch(['assets/script/**/*.js'], () => gulp.start('babel'));
 })
