@@ -77,6 +77,7 @@ gulp.task('jade', () => {
         ]))
         .pipe($.prettify({indent_size: 4}))
         .pipe($.replace(/&nbsp;/g, ' '))
+        .pipe($.check('elem="')).on('error', $.notify.onError())
         .pipe(gulp.dest('./app/'))
         .on('end', browserSync.reload)
 })
